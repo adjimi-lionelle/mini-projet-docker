@@ -1,0 +1,55 @@
+version: "3.8"
+
+services:
+  website:
+    image: php:apache
+    container_name: website
+    environment:
+      USERNAME: "toto"
+      PASSWORD: "python"
+    volumes:
+      - ./website:/var/www/html
+    depends_on:
+      - api
+    ports:
+      - "86:80"
+    networks:
+      - student_network
+
+  api:
+    image: student_age_api
+    container_name: api
+    volumes:
+      - ./simple_api/:/data/
+    ports:
+      - "5000:5000"
+    networks:
+      - student_network
+  registry:
+    image: registry:2.8.1
+    container_name: registry
+    ports:
+      - "5005:5000"
+    # volumes:
+    #  - ./simple_api/config.yml:/etc/docker/registry/config.yml 
+    networks:
+      - registry_network
+
+  registry_ui:
+    image: konradkleine/docker-registry-frontend:v2
+    container_name: registry_frontend
+    ports:
+      - "8085:80"
+    environment:
+      - ENV_DOCKER_REGISTRY_HOST=registry
+      - ENV_DOCKER_REGISTRY_PORT=5005
+      - REGISTRY_URL=http://registry:5005
+      - REGISTRY_TITLE=Nanotech
+    networks:
+      - registry_network
+
+networks:
+  student_network:
+    driver: bridge
+  registry_network:
+    driver: bridge
