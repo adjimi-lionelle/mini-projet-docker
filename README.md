@@ -129,23 +129,27 @@ La commande suivante demandera au conteneur frontend de solliciter l'API du back
 ```bash
 docker exec website curl -u toto:python -X GET http://api:5000/pozos/api/v1.0/get_student_ages
 ```
-![alt text](image-1.png)
+![image-1](https://github.com/user-attachments/assets/7dabcc59-5129-473d-9ac6-e0d0044e05d3)
+
 
 
 6-b Utilisation d'un navigateur web avec l'adresse IP:86 :
 
 -  Si vous exécutez l'application sur un serveur distant ou une machine virtuelle (par exemple, provisionnée par le fichier Vagrant d'eazytraining), trouvez votre adresse IP en tapant hostname -I.
 
-![alt text](image-2.png)
+![image-2](https://github.com/user-attachments/assets/bdbf917e-d8ad-4109-b833-cca490cbd526)
+
 
 - Si vous utilisez votre machine local, tapez localhost:86
 Dans mon cas j'utilise une machine virtuelle provisionnée par le fichier Vagrantfile d'eazytraining.
 
-![alt text](image-4.png)
+![image-4](https://github.com/user-attachments/assets/8ab3cb37-13e5-4fac-9c61-5adbce132061)
+
 
 Ensuite cliquez sur le bouton List Student.
 
-![alt text](image-3.png)
+![image-3](https://github.com/user-attachments/assets/60c4ff1d-5c7b-419e-acd5-60452be4dac5)
+
 
 
 7) Nettoyez l'espace de travail :
@@ -160,14 +164,18 @@ docker network rm student_network
 docker network ls
 docker ps
 ```
-![alt text](image-5.png)
+
+![image-5](https://github.com/user-attachments/assets/8688a32b-48e4-41df-9d0c-1a62e7d072b7)
+
 
 
 
 ## Deployment via docker-compose
 
 Une fois les tests réussis, nous pouvons maintenant « composeriser » notre infrastructure en plaçant les paramètres docker run dans un fichier docker-compose.yml au format Infrastructure as Code.
-![alt text](image-6.png)
+
+![image-6](https://github.com/user-attachments/assets/c838dd12-99ac-42c4-8c08-26b9aa33d73f)
+
 
 As the tests passed we can now 'composerize' our infrastructure by putting the `docker run` parameters in ***infrastructure as code*** format into a `docker-compose.yml` file.
 
@@ -178,21 +186,24 @@ As the tests passed we can now 'composerize' our infrastructure by putting the `
 ```bash
 docker-compose up -d
 ```
-![alt text](image-8.png)
+![image-8](https://github.com/user-attachments/assets/0a862149-8c68-4cc4-9f64-b1e9438ff124)
+
 
 Docker Compose permet de spécifier l'ordre de démarrage des conteneurs. Le conteneur d'API démarrera en premier, car j'ai indiqué que l'application web dépend de celui-ci via l'option depends_on.
 
 Nous pouvons accéder à l'application via le navigateur en tapant: 
 192.168.56.3:86 où 192.168.56.3 représente l'adresse ip de la machine virtuelle que j'utilise.
 
-![alt text](image-9.png)
+![image-9](https://github.com/user-attachments/assets/aa087067-ae8a-48f7-b227-33599acc2d2c)
+
 
 
 2) Créez un registre et son interface :
 
 Nous avons utilisé l'image registry:2.8.1 pour le registre back-end et joxit/docker-registry-ui:static pour l'interface graphique. J'ai également configuré quelques variables d'environnement.
 
-![alt text](image-10.png)
+![image-10](https://github.com/user-attachments/assets/76ec1d72-208d-4f87-9ee7-029dea4ab63b)
+
 
 
 Par exemple, nous pourrons supprimer des images du registre via l'interface graphique.
@@ -201,11 +212,13 @@ Par exemple, nous pourrons supprimer des images du registre via l'interface grap
 docker-compose -f docker-compose.registry.yml up -d
 docker ps
 ```
-![alt text](image-12.png)
+![image-12](https://github.com/user-attachments/assets/0b769ed8-bb01-46a2-b0c9-4e208a13d928)
+
 
 Nous pouvons accéder à l'interface frontale du registre via le navigateur en tapant:  192.168.56.3:8082
 
-![alt text](image-11.png)
+![image-11](https://github.com/user-attachments/assets/0cf683aa-af4a-4497-b674-5304818caf02)
+
 
 
 
@@ -215,12 +228,14 @@ Nous pouvons accéder à l'interface frontale du registre via le navigateur en t
 docker tag 89803ed32624 localhost:5005/student_age_api:local
 docker images
 ```
-![alt text](image-13.png)
+![image-13](https://github.com/user-attachments/assets/5e39dcf1-d2a3-4d6b-a957-fd7037409f7a)
+
 - Poussez l'image sur le registre :
 ```bash 
 docker push localhost:5005/student_age_api:local
 ```
-![alt text](image-14.png)
+![image-14](https://github.com/user-attachments/assets/d265a190-1356-4f2f-8d39-6044145b8418)
+
 
 
 ------------
