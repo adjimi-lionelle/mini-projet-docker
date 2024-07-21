@@ -120,15 +120,14 @@ docker ps
 > ![7-docker ps](https://user-images.githubusercontent.com/101605739/224591443-344fd2cd-ddbc-4780-bbc5-7cc0bdac156f.jpg)
 
 
-6) Test the api through the frontend :
+6) Tester l'API via le frontend :
 
-6a) Using command line :
+  -  Utilisation de la ligne de commande :
 
-The next command will ask the frontend container to request the backend api and show you the output back.
-The goal is to test both if the api works and if frontend can get the student list from it.
+La commande suivante demandera au conteneur frontend de solliciter l'API du backend et d'afficher le résultat. Cela permettra de vérifier à la fois le bon fonctionnement de l'API et la capacité du frontend à obtenir la liste des étudiants depuis celle-ci.
 
 ```bash
-docker exec webapp.student_list curl -u toto:python -X GET http://api.student_list:5000/pozos/api/v1.0/get_student_ages
+docker exec website curl -u toto:python -X GET http://api:5000/pozos/api/v1.0/get_student_ages
 ```
 > ![8-docker exec](https://user-images.githubusercontent.com/101605739/224593842-23c7f3a5-e5bc-4840-a6af-2eda0f622710.png)
 
