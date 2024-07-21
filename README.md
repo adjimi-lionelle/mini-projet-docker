@@ -17,3 +17,6 @@ Période : juillet-août-septembre
 Lundi 01 juillet 2024
 
 LinkedIn : https://www.linkedin.com/in/lionelle-adjimi-adamou-01a782217/
+
+![image](https://github.com/user-attachments/assets/647c86eb-f606-48a7-9aeb-c23fd5a9a17f)
+
