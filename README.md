@@ -135,10 +135,12 @@ docker exec website curl -u toto:python -X GET http://api:5000/pozos/api/v1.0/ge
 6-b Utilisation d'un navigateur web avec l'adresse IP:86 :
 
 -  Si vous exécutez l'application sur un serveur distant ou une machine virtuelle (par exemple, provisionnée par le fichier Vagrant d'eazytraining), trouvez votre adresse IP en tapant hostname -I.
+
 ![alt text](image-2.png)
 
 - Si vous utilisez votre machine local, tapez localhost:86
 Dans mon cas j'utilise une machine virtuelle provisionnée par le fichier Vagrantfile d'eazytraining.
+
 ![alt text](image-4.png)
 
 Ensuite cliquez sur le bouton List Student.
