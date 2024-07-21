@@ -5,6 +5,7 @@
     </head>
 
     <body>
+        <h2 style='color:green'>Congratulations, Mrs. ADJIMI ADAMOU Lionelle, you have successfully deployed the application!</h2>
         <h1>Student Checking App</h1>
         <ul>
             <form action="" method="POST">
