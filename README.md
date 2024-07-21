@@ -122,27 +122,28 @@ docker ps
 
 6) Tester l'API via le frontend :
 
-  -  Utilisation de la ligne de commande :
+  6-a Utilisation de la ligne de commande :
 
 La commande suivante demandera au conteneur frontend de solliciter l'API du backend et d'afficher le résultat. Cela permettra de vérifier à la fois le bon fonctionnement de l'API et la capacité du frontend à obtenir la liste des étudiants depuis celle-ci.
 
 ```bash
 docker exec website curl -u toto:python -X GET http://api:5000/pozos/api/v1.0/get_student_ages
 ```
-> ![8-docker exec](https://user-images.githubusercontent.com/101605739/224593842-23c7f3a5-e5bc-4840-a6af-2eda0f622710.png)
+![alt text](image-1.png)
 
 
-6b) Using a web browser `IP:80` :
+6-b Utilisation d'un navigateur web avec l'adresse IP:86 :
 
-- If you're running the app into a remote server or a virtual machine (e.g provisionned by eazytraining's vagrant file), please find your ip address typing `hostname -I`
-> ![9-hostname -I](https://user-images.githubusercontent.com/101605739/224594393-841a5544-7914-4b4f-91fd-90ce23200156.jpg)
+-  Si vous exécutez l'application sur un serveur distant ou une machine virtuelle (par exemple, provisionnée par le fichier Vagrant d'eazytraining), trouvez votre adresse IP en tapant hostname -I.
+![alt text](image-2.png)
 
-- If you are working on PlayWithDocker, just `open the 80 port` on the gui
-- If not, type `localhost:80`
+- Si vous utilisez votre machine local, tapez localhost:86
+Dans mon cas j'utilise une machine virtuelle provisionnée par le fichier Vagrantfile d'eazytraining.
+![alt text](image-4.png)
 
-Click the button
+Ensuite cliquez sur le bouton List Student.
 
-> ![10-check webpage](https://user-images.githubusercontent.com/101605739/224594989-0cb5bcb7-d033-4969-a12e-0b2aa9953a97.jpg)
+![alt text](image-3.png)
 
 
 7) Nettoyez l'espace de travail :
@@ -157,72 +158,74 @@ docker network rm student_network
 docker network ls
 docker ps
 ```
-> ![11-clean-up](https://user-images.githubusercontent.com/101605739/224595124-3ea15f42-e6d5-462a-92a0-52af7c73c17a.jpg)
+![alt text](image-5.png)
 
 
 
+## Deployment via docker-compose
 
-## Deployment
+Une fois les tests réussis, nous pouvons maintenant « composeriser » notre infrastructure en plaçant les paramètres docker run dans un fichier docker-compose.yml au format Infrastructure as Code.
+![alt text](image-6.png)
 
 As the tests passed we can now 'composerize' our infrastructure by putting the `docker run` parameters in ***infrastructure as code*** format into a `docker-compose.yml` file.
 
-1) Run the application (api + webapp) :
+1) Exécutez l'application (API + site web)
 
-As we've already created the application image, now you just have to run :
+Étant donné que l'image de l'application a déjà été créée, il vous suffit maintenant de lancer les conteneurs avec la commande suivante : 
 
 ```bash
 docker-compose up -d
 ```
+![alt text](image-8.png)
 
-Docker-compose permits to chose which container must start first.
-The api container will be first as I specified that the webapp `depends_on:` it.
-> ![12-depends on](https://user-images.githubusercontent.com/101605739/224595564-e010cc3f-700b-4b3e-9251-904dafbe4067.png)
+Docker Compose permet de spécifier l'ordre de démarrage des conteneurs. Le conteneur d'API démarrera en premier, car j'ai indiqué que l'application web dépend de celui-ci via l'option depends_on.
 
-And the application works :
-> ![13-check app](https://github.com/Abdel-had/mini-projet-docker/assets/101605739/2002c41f-6590-4491-b571-65de7ba1457e)
+Nous pouvons accéder à l'application via le navigateur en tapant: 
+192.168.56.3:86 où 192.168.56.3 représente l'adresse ip de la machine virtuelle que j'utilise.
 
-
-2) Create a registry and its frontend
-
-I used `registry:2` image for the registry, and `joxit/docker-registry-ui:static` for its frontend gui and passed some environment variables :
-
-> ![14-gui registry env var](https://user-images.githubusercontent.com/101605739/224596117-76cda01c-f2f6-4a18-862f-95d56449f98a.png)
+![alt text](image-9.png)
 
 
-E.g we'll be able to delete images from the registry via the gui.
+2) Créez un registre et son interface :
+
+Nous avons utilisé l'image registry:2.8.1 pour le registre back-end et joxit/docker-registry-ui:static pour l'interface graphique. J'ai également configuré quelques variables d'environnement.
+
+![alt text](image-10.png)
+
+
+Par exemple, nous pourrons supprimer des images du registre via l'interface graphique.
 
 ```bash
 docker-compose -f docker-compose.registry.yml up -d
+docker ps
 ```
-> ![15-check gui reg](https://github.com/Abdel-had/mini-projet-docker/assets/101605739/99f182f1-bc73-458c-8b29-207a681a31fd)
+![alt text](image-12.png)
+
+Nous pouvons accéder à l'interface frontale du registre via le navigateur en tapant:  192.168.56.3:8082
+
+![alt text](image-11.png)
 
 
-3) Push an image on the registry and test the gui
 
-You have to rename it before (`:latest` is optional) :
-
-> NB: for this exercise, I have left the credentials in the **.yml** file.
-
-```bash
-docker login
-docker image tag api.student_list.img:latest localhost:5000/pozos/api.student_list.img:latest
+3) Poussez une image sur le registre et testez l'interface graphique
+- créez un tag de l'image : 
+```bash 
+docker tag 89803ed32624 localhost:5005/student_age_api:local
 docker images
-docker image push localhost:5000/pozos/api.student_list.img:latest
 ```
-
-> ![16-push image to registry](https://github.com/Abdel-had/mini-projet-docker/assets/101605739/4dbff256-72ae-4c6e-b076-65e705828f28)
-
-> ![17-full reg](https://github.com/Abdel-had/mini-projet-docker/assets/101605739/fbc9cd2b-ec4b-4211-ba26-1a454936b204)
-
-> ![18-full reg details](https://github.com/Abdel-had/mini-projet-docker/assets/101605739/3c89e9cc-f1f4-42f8-bea4-4e3ec1672cbe)
+![alt text](image-13.png)
+- Poussez l'image sur le registre :
+```bash 
+docker push localhost:5005/student_age_api:local
+```
+![alt text](image-14.png)
 
 
 ------------
 
 
-# This concludes my Docker mini-project run report.
-
-Throughout this project, I had the opportunity to create a custom Docker image, configure networks and volumes, and deploy applications using docker-compose. Overall, this project has been a rewarding experience that has allowed me to strengthen my technical skills and gain a better understanding of microservices principles. I am now better equipped to tackle similar projects in the future and contribute to improving containerization and deployment processes within my team and organization.
+## Ceci conclut mon rapport d’exécution du mini-projet Docker. 
+Au cours de ce projet, j'ai eu l'opportunité de créer une image Docker personnalisée, de configurer des réseaux et des volumes, et de déployer des applications à l'aide de Docker Compose. Cette expérience a été très enrichissante, me permettant de renforcer mes compétences techniques et d'approfondir ma compréhension des principes des microservices. Je suis désormais mieux préparé pour aborder des projets similaires à l'avenir et pour contribuer à l'amélioration des processus de conteneurisation et de déploiement au sein de mon équipe et de mon organisation.
 
 ![octocat](https://myoctocat.com/assets/images/base-octocat.svg) 
 

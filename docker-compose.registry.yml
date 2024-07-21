@@ -12,15 +12,14 @@ services:
       - registry_network
 
   registry_ui:
-    image: konradkleine/docker-registry-frontend:v2
+    image: joxit/docker-registry-ui:2
     container_name: registry_frontend
     ports:
-      - "8085:80"
+      - "8082:80"
     environment:
-      - ENV_DOCKER_REGISTRY_HOST=registry
-      - ENV_DOCKER_REGISTRY_PORT=5005
       - REGISTRY_URL=http://registry:5005
-      - REGISTRY_TITLE=Nanotech
+      - REGISTRY_TITLE=Pozos
+      - DELETE_IMAGE=true
     networks:
       - registry_network
 
