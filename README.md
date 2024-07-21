@@ -62,7 +62,8 @@ cd ./mini-projet-docker/simple_api
 docker build . -t student_age_api
 docker images
 
-![alt text](image-1.png)
+![image-1](https://github.com/user-attachments/assets/766f0503-635e-418d-bfa0-e5d1bc8798b4)
+
 
 2) Créer un réseau de type bridge afin que les deux conteneurs puissent communiquer entre eux en utilisant leurs noms grâce aux fonctionnalités DNS.
 
@@ -71,7 +72,8 @@ docker images
 docker network create student_list.network --driver=bridge
 docker network ls
 ```
-![alt text](image-2.png)
+![image-2](https://github.com/user-attachments/assets/c75b5892-c121-4e2d-8c4b-4200f4fbe2fd)
+
 
 3) Retournez au répertoire racine du projet et lancez le conteneur d'API backend en utilisant ces arguments :
 
@@ -80,13 +82,15 @@ cd ..
 docker run --rm -d --name=api.student_list --network=student_list.network -v ./simple_api/:/data/ api.student_list.img
 docker ps
 ```
-![alt text](image-3.png)
+![image-3](https://github.com/user-attachments/assets/bb5abfbb-efdb-4eee-a5b6-7f7db6810bba)
+
 
 Comme vous pouvez le voir, le conteneur backend de l'API écoute sur le port 5000. Ce port interne est accessible depuis un autre conteneur du même réseau, c'est pourquoi j'ai choisi de ne pas l'exposer.
 
 De plus, j'ai monté le répertoire local ./simple_api dans le répertoire /data du conteneur afin que l'API puisse accéder au fichier student_age.json.
 
-![alt text](image-4.png)
+![image-4](https://github.com/user-attachments/assets/973d848d-d384-4d94-a0ab-8a03611477d5)
+
 
 
 4) Mettre à jour le fichier index.php :
@@ -99,13 +103,15 @@ Grâce aux fonctionnalités DNS de notre réseau de type bridge, nous pouvons fa
 ```bash
 sed -i s\<api_ip_or_name:port>\api:5000\g ./website/index.php
 ```
-![alt text](image-5.png)
+![image-5](https://github.com/user-attachments/assets/bb16523c-191c-47a2-86a4-f1af71a4d8e7)
+
 
 
 5) Lancez le conteneur de l'application Web frontend :
 Les informations de connexion contenant le nom d'utilisateur et le mot de passe sont disponibles dans le fichier `simple_api/student_age.py.`
 
-![alt text](image-6.png)
+![image-6](https://github.com/user-attachments/assets/4d49d39c-2507-4cdc-9852-9c175df3d21d)
+
 
 ```bash
 docker run --rm -d --name=website -p 86:80 --network=student_network -v ./website/:/var/www/html -e USERNAME=toto -e PASSWORD=python php:apache
