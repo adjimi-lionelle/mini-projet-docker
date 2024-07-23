@@ -236,15 +236,16 @@ docker push localhost:5005/student_age_api:local
 ```
 ![image-14](https://github.com/user-attachments/assets/d265a190-1356-4f2f-8d39-6044145b8418)
 
-
+Malheurement l'image n'apparaît dans l'interface frontale du registre.
 
 ------------
 
 
 ## Ceci conclut mon rapport d’exécution du mini-projet Docker. 
-Au cours de ce projet, j'ai eu l'opportunité de créer une image Docker personnalisée, de configurer des réseaux et des volumes, et de déployer des applications à l'aide de Docker Compose. Cette expérience a été très enrichissante, me permettant de renforcer mes compétences techniques et d'approfondir ma compréhension des principes des microservices. Je suis désormais mieux préparé pour aborder des projets similaires à l'avenir et pour contribuer à l'amélioration des processus de conteneurisation et de déploiement au sein de mon équipe et de mon organisation.
+Au cours de ce projet, aborder plusieurs notions sur docker notamment la création d'image docker, la configuration des volume et réseaux, le déploiement avec docker-compose et enfin la création des registres.
 
-![octocat](https://myoctocat.com/assets/images/base-octocat.svg) 
+Cette expérience fut très enrichissante, me permettant de comprendre et d'acquerir des compétences dans la configuration des microservices. 
+
 
 
 
