@@ -1,27 +1,33 @@
 version: "3.8"
 
 services:
-  registry:
+  backend:
     image: registry:2.8.1
-    container_name: registry
+    container_name: registry_backend
     ports:
-      - "5005:5000"
-    # volumes:
-    #  - ./simple_api/config.yml:/etc/docker/registry/config.yml 
+      - "5000:5000"
+    #volumes:
+      #- ./simple_api/config.yml:/etc/docker/registry/config.yml
+    environment:
+      - REGISTRY_STORAGE_DELETE_ENABLED=true
     networks:
       - registry_network
 
-  registry_ui:
-    image: joxit/docker-registry-ui:2
+  frontend:
+    image: joxit/docker-registry-ui:latest
     container_name: registry_frontend
     ports:
       - "8082:80"
     environment:
-      - REGISTRY_URL=http://registry:5005
+      - NGINX_PROXY_PASS_URL=http://registry_backend:5000
       - REGISTRY_TITLE=Pozos
       - DELETE_IMAGE=true
+      - SINGLE_REGISTRY=true
+      - ENABLE_DELETE_IMAGES=true
     networks:
       - registry_network
+    depends_on:
+      - backend
 
 networks:
   registry_network:
