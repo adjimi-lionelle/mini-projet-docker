@@ -200,7 +200,7 @@ Nous pouvons accéder à l'application via le navigateur en tapant:
 
 2) Créez un registre et son interface :
 
-Nous avons utilisé l'image registry:2.8.1 pour le registre back-end et joxit/docker-registry-ui:static pour l'interface graphique. J'ai également configuré quelques variables d'environnement.
+Nous avons utilisé l'image registry:2.8.1 pour le registre back-end et joxit/docker-registry-ui:2 pour l'interface graphique. J'ai également configuré quelques variables d'environnement.
 
 ![image-10](https://github.com/user-attachments/assets/76ec1d72-208d-4f87-9ee7-029dea4ab63b)
 
@@ -225,10 +225,11 @@ Nous pouvons accéder à l'interface frontale du registre via le navigateur en t
 3) Poussez une image sur le registre et testez l'interface graphique
 - créez un tag de l'image : 
 ```bash 
-docker tag 89803ed32624 localhost:5005/student_age_api:local
+docker tag 89803ed32624 localhost:5000/student_age_api:local
 docker images
 ```
-![image-13](https://github.com/user-attachments/assets/5e39dcf1-d2a3-4d6b-a957-fd7037409f7a)
+![image](https://github.com/user-attachments/assets/bc706b99-8d3c-4d52-9510-e3b766df1fd1)
+
 
 - Poussez l'image sur le registre :
 ```bash 
@@ -236,7 +237,10 @@ docker push localhost:5005/student_age_api:local
 ```
 ![image-14](https://github.com/user-attachments/assets/d265a190-1356-4f2f-8d39-6044145b8418)
 
-Malheurement l'image n'apparaît dans l'interface frontale du registre.
+![image](https://github.com/user-attachments/assets/9c4cddbe-0567-4be9-8205-f06db79d1394)
+
+![image](https://github.com/user-attachments/assets/163e5d43-8589-4818-b73b-dd1c58536527)
+
 
 ------------
 
