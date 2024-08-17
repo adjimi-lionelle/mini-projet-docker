@@ -65,6 +65,7 @@ docker images
 ![image-1](https://github.com/user-attachments/assets/766f0503-635e-418d-bfa0-e5d1bc8798b4)
 
 
+
 2) Créer un réseau de type bridge afin que les deux conteneurs puissent communiquer entre eux en utilisant leurs noms grâce aux fonctionnalités DNS.
 
 
