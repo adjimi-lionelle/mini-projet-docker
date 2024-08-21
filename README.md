@@ -240,7 +240,8 @@ docker push localhost:5005/student_age_api:local
 
 ![image](https://github.com/user-attachments/assets/9c4cddbe-0567-4be9-8205-f06db79d1394)
 
-![image](https://github.com/user-attachments/assets/163e5d43-8589-4818-b73b-dd1c58536527)
+![Capture d’écran du 2024-08-21 23-28-33](https://github.com/user-attachments/assets/1a457b1c-e919-4be5-b797-fd4451b0ee75)
+
 
 
 ------------
